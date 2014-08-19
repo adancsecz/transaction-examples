@@ -1,8 +1,9 @@
 package transactions.xa;
 
-import org.jboss.logging.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -16,24 +17,24 @@ import transactions.jpa.entity.InvestmentAccount;
 @EnableTransactionManagement
 public class XATransactionsTest {
 
-	private static final Logger logger = Logger
-			.getLogger(XATransactionsTest.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(XATransactionsTest.class);
 
-	@Autowired
-	private InterAccountService interAccountService;
+    @Autowired
+    private InterAccountService interAccountService;
 
-	@Autowired
-	private BankAccountDao bankAccountDao;
+    @Autowired
+    private BankAccountDao bankAccountDao;
 
-	@Autowired
-	private InvestmentAccountDao investmentAccountDao;
+    @Autowired
+    private InvestmentAccountDao investmentAccountDao;
 
-	@Test
-	public void test() {
-		interAccountService.save(new BankAccount(), new InvestmentAccount());
-		logger.info("Bank accounts: " + bankAccountDao.getAllCount());
-		logger.info("Investment accounts: "
-				+ investmentAccountDao.getAllCount());
-	}
+    @Test
+    public void test() {
+        interAccountService.save(new BankAccount(), new InvestmentAccount());
+        LOGGER.info("Bank accounts: " + bankAccountDao.getAllCount());
+        LOGGER.info("Investment accounts: "
+                + investmentAccountDao.getAllCount());
+    }
 
 }

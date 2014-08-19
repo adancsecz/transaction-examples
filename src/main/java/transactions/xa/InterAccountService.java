@@ -10,18 +10,18 @@ import transactions.jpa.entity.InvestmentAccount;
 @Service
 public class InterAccountService {
 
-	@Autowired
-	private BankAccountDao bankAccountDao;
+    @Autowired
+    private BankAccountDao bankAccountDao;
 
-	@Autowired
-	private InvestmentAccountDao investmentAccountDao;
+    @Autowired
+    private InvestmentAccountDao investmentAccountDao;
 
-	@Transactional
-	public void save(BankAccount bankAccount,
-			InvestmentAccount investmentAccount) {
-		bankAccountDao.save(bankAccount);
-		investmentAccountDao.save(investmentAccount);
+    @Transactional
+    public void save(BankAccount bankAccount,
+            InvestmentAccount investmentAccount) {
+        bankAccountDao.save(bankAccount);
+        investmentAccountDao.save(investmentAccount);
 
-	}
+    }
 
 }
