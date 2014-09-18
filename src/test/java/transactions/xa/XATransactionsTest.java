@@ -16,7 +16,7 @@ import transactions.jpa.entity.BankAccount;
 import transactions.jpa.entity.InvestmentAccount;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:xa-context.xml"})
+@ContextConfiguration(locations = { "classpath:xa-context.xml" })
 @EnableTransactionManagement
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class XATransactionsTest {
@@ -40,7 +40,7 @@ public class XATransactionsTest {
     @Test
     public void givenTwoDatasourcesWhenOneInsertThrowsExceptionThenNoEntityShouldBeInserted() {
         try {
-            interAccountService.save(new BankAccount(), new InvestmentAccount("moreThanEightCharacters"));
+            interAccountService.save(new BankAccount("bank"), new InvestmentAccount("moreThanEightCharacters"));
             Assert.fail();
         } catch (PersistenceException e) {
             Assert.assertEquals(0, bankAccountDao.getAllCount());

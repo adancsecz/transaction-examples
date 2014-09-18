@@ -13,7 +13,7 @@ import org.springframework.transaction.InvalidIsolationLevelException;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:jpa-context.xml"})
+@ContextConfiguration(locations = { "classpath:jpa-context.xml" })
 @EnableTransactionManagement
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class IsolationLevelTest {
@@ -36,16 +36,15 @@ public class IsolationLevelTest {
 
     @Test
     public void givenInsertingWhenMethodWithReadUncommitedIsolationLevelCalledThenExceptionShouldBeThrown() throws InterruptedException {
-        startConcurrentCheckerReadUncommited();
+        Thread concurrentCheckerReadUncommited = getConcurrentCheckerReadUncommited();
+        concurrentCheckerReadUncommited.start();
         bookingService.insertBookings("User1", "User2", "User3");
-        while (hasException == null)
-            ;
-        System.out.println(hasException);
+        concurrentCheckerReadUncommited.join();
         Assert.assertTrue(hasException);
     }
 
-    private void startConcurrentCheckerReadUncommited() {
-        new Thread(new Runnable() {
+    private Thread getConcurrentCheckerReadUncommited() {
+        return new Thread(new Runnable() {
             @Override
             public void run() {
                 synchronized (hasException) {
@@ -56,14 +55,10 @@ public class IsolationLevelTest {
                         }
                     } catch (InvalidIsolationLevelException e) {
                         hasException = true;
-                    } finally {
-                        if (hasException == null) {
-                            hasException = false;
-                        }
                     }
                 }
             }
-        }).start();
+        });
     }
 
 }

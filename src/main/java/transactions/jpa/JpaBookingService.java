@@ -56,7 +56,7 @@ public class JpaBookingService {
      * @param bookings
      *            - the bookings to be inserted.
      */
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.NESTED)
     public void insertBookingsWithNestedPropagation(String... bookings) {
         insertMultipleBookings(bookings);
     }

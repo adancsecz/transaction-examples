@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:jpa-context.xml"})
+@ContextConfiguration(locations = { "classpath:jpa-context.xml" })
 @EnableTransactionManagement
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class PropagationLevelTest {
